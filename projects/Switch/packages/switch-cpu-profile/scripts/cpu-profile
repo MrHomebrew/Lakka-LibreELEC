@@ -14,9 +14,11 @@ For now the profile is not retained and is set to default speed when rebooting.
 # File corresponding to the current profile
 PROFILE_FILE = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
 
-# Profiles list, in KHz - max 1912500
+# Profiles list, in KHz - max 2091000
 PROFILES = {
-    "overclock-4":  "1912500",
+    "overclock-6":  "2091000",
+    "overclock-5":  "1989000",
+    "overclock-4":  "1887000",
     "overclock-3":  "1734000",
     "overclock-2":  "1530000",
     "overclock-1":  "1224000",
