@@ -19,7 +19,7 @@
 ################################################################################
 
 PKG_NAME="reicast"
-PKG_VERSION="0271184"
+PKG_VERSION="037da2a"
 PKG_REV="1"
 PKG_ARCH="arm i386 x86_64 aarch64"
 PKG_LICENSE="GPLv2"
@@ -46,10 +46,8 @@ make_target() {
         fi
         make platform=rpi FORCE_GLES=$REICAST_GLES HAVE_OPENMP=0
     fi
-  elif [ "$ARCH" == "aarch64" ]; then
-    make platform=arm64 HAVE_OPENMP=0 FORCE_GLES=0 GLES=0 HAVE_OIT=1
   else
-    make platform=unix unix AS=${AS} CC_AS=${AS} ARCH=${ARCH} HAVE_OPENMP=0
+    make platform=arm64 HAVE_OPENMP=0 FORCE_GLES=0 GLES=0 HAVE_OIT=1
   fi
 }
 
