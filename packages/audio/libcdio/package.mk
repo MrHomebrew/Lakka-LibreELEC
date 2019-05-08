@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="libcdio"
-PKG_VERSION="0.94"
+PKG_VERSION="2.1.0"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://www.gnu.org/software/libcdio/"

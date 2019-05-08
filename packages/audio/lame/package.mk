@@ -17,11 +17,11 @@
 ################################################################################
 
 PKG_NAME="lame"
-PKG_VERSION="3.99.5"
+PKG_VERSION="3.100"
 PKG_ARCH="any"
 PKG_LICENSE="LGPL"
 PKG_SITE="http://lame.sourceforge.net/"
-PKG_URL="$SOURCEFORGE_SRC/lame/lame/3.99/$PKG_NAME-$PKG_VERSION.tar.gz"
+PKG_URL="$SOURCEFORGE_SRC/lame/lame/3.100/$PKG_NAME-$PKG_VERSION.tar.gz"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_SECTION="audio"
 PKG_SHORTDESC="lame: LAME Ain't an Mp3 Encoder"

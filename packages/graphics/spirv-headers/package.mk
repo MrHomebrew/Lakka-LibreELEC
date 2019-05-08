@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="spirv-headers"
-PKG_VERSION="2d08d12"
+PKG_VERSION="c4f8f65"
 PKG_ARCH="any"
 PKG_LICENSE="Apache 2.0"
 PKG_SITE="https://github.com/KhronosGroup/SPIRV-Headers"
