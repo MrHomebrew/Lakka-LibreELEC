@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="nvidia-driver"
-PKG_VERSION="390.42"
+PKG_VERSION="418.74"
 PKG_ARCH="x86_64"
 PKG_LICENSE="nonfree"
 PKG_SITE="http://www.nvidia.com/"

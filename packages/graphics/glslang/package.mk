@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="glslang"
-PKG_VERSION="f88e582"
+PKG_VERSION="e291f7a"
 PKG_ARCH="any"
 PKG_LICENSE="Apache 2.0"
 PKG_SITE="https://github.com/KhronosGroup/glslang"
