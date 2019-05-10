@@ -18,7 +18,7 @@
 ################################################################################
 
 PKG_NAME="libcap"
-PKG_VERSION="2.25"
+PKG_VERSION="2.27"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE=""
