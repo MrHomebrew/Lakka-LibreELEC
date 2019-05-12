@@ -19,7 +19,7 @@
 ################################################################################
 
 PKG_NAME="linux-nvgpu"
-PKG_VERSION="tegra-l4t-r32.1"
+PKG_VERSION="d36e073c147e6c8c398012373f7d2b3e7b00f3cd"
 PKG_VERSION_LONG="tegra-l4t-r32.1.1"
 PKG_ARCH="any"
 PKG_LICENSE="nonfree"
