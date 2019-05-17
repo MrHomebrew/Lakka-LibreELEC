@@ -18,30 +18,28 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-PKG_NAME="genesis-plus-gx"
-PKG_VERSION="53e043d"
+PKG_NAME="yabasanshiro"
+PKG_VERSION="f702466"
+PKG_GIT_BRANCH="yabasanshiro"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="Non-commercial"
-PKG_SITE="https://github.com/libretro/Genesis-Plus-GX"
+PKG_LICENSE="GPLv2"
+PKG_SITE="https://github.com/libretro/yabause"
 PKG_GIT_URL="$PKG_SITE"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
 PKG_SECTION="libretro"
-PKG_SHORTDESC="An enhanced port of Genesis Plus for Gamecube/Wii"
-PKG_LONGDESC="Genesis Plus GX is an open-source & portable Sega Mega Drive / Genesis emulator, now also emulating SG-1000, Master System, Game Gear and Sega/Mega CD hardware."
+PKG_SHORTDESC="Port of YabaSanshiro to libretro."
+PKG_LONGDESC="Port of YabaSanshiro to libretro."
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
 make_target() {
-  if [ "$ARCH" == "arm" ]; then
-    CFLAGS="$CFLAGS -DALIGN_LONG"
-  fi
-  make -f Makefile.libretro
+  make -C yabause/src/libretro platform=arm64
 }
 
 makeinstall_target() {
   mkdir -p $INSTALL/usr/lib/libretro
-  cp genesis_plus_gx_libretro.so $INSTALL/usr/lib/libretro/genesis_plus_gx_libretro.so
+  cp yabause/src/libretro/yabasanshiro_libretro.so $INSTALL/usr/lib/libretro/
 }

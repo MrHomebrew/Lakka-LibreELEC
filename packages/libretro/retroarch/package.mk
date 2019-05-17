@@ -19,7 +19,7 @@
 ################################################################################
 
 PKG_NAME="retroarch"
-PKG_VERSION="948c242"
+PKG_VERSION="5de6662"
 PKG_REV="11"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv3"
@@ -49,7 +49,7 @@ if [ "$OPENGL_SUPPORT" == yes ]; then
 fi
 
 if [ "$VULKAN_SUPPORT" == yes ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $VULKAN vulkan-loader"
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $VULKAN vulkan-loader slang-shaders"
 fi
 
 if [ "$SAMBA_SUPPORT" = yes ]; then
