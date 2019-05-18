@@ -36,34 +36,8 @@ PKG_AUTORECONF="no"
 PKG_USE_CMAKE="no"
 
 make_target() {
-<<<<<<< HEAD:packages/libretro/parallel-n64/package.mk
-  DYNAREC=$ARCH
-
-  if [ "$ARCH" == "i386" ]; then
-    DYNAREC=x86
-  fi
-
-  if [ "$PROJECT" == "RPi" -o "$PROJECT" == "Gamegirl" -o "$PROJECT" == "Slice" ]; then
-    make platform=rpi
-  elif [[ "$TARGET_FPU" =~ "neon" ]]; then
-    if [ "$OPENGLES_SUPPORT" = "yes" ]; then
-      P64GLES="-gles"
-    else
-      P64GLES=""
-    fi
-    CFLAGS="$CFLAGS -DGL_BGRA_EXT=0x80E1" # Fix build for platforms where GL_BGRA_EXT is not defined
-    make platform=armv$P64GLES-neon
-  elif [ "$PROJECT" ==  "Rockchip" -a "$ARCH" == "aarch64" ]; then
-    LDFLAGS="$LDFLAGS -lpthread"
-    make FORCE_GLES=1 HAVE_PARALLEL=1
-  else
-    LDFLAGS="$LDFLAGS -lpthread"
-    make WITH_DYNAREC=$DYNAREC HAVE_PARALLEL=0
-  fi
-=======
   cd $PKG_BUILD
   make
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b:packages/libretro/theodore/package.mk
 }
 
 makeinstall_target() {

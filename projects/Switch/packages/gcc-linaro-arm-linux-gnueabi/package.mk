@@ -17,13 +17,8 @@
 ################################################################################
 
 PKG_NAME="gcc-linaro-arm-linux-gnueabi"
-<<<<<<< HEAD
-PKG_VERSION="7.3.1-2018.05"
-PKG_VERSION_SHORT="7.3-2018.05"
-=======
 PKG_VERSION="7.4.1-2019.02"
 PKG_VERSION_SHORT="7.4-2019.02"
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"

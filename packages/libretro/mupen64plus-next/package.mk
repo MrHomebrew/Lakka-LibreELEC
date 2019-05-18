@@ -69,15 +69,9 @@ make_target() {
       ;;
     *)
       if [ "$OPENGLES_SUPPORT" = "yes" ]; then
-<<<<<<< HEAD:packages/libretro/mupen64plus/package.mk
-        make platform=unix-gles GLES=1 FORCE_GLES=1 HAVE_NEON=1 WITH_DYNAREC=arm
-      else
-        make platform=unix-neon HAVE_NEON=1 WITH_DYNAREC=arm
-=======
         make platform=unix-gles GLES=1 FORCE_GLES=1 HAVE_NEON=1 WITH_DYNAREC=$ARCH
       else
         make platform=unix WITH_DYNAREC=$ARCH
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b:packages/libretro/mupen64plus-next/package.mk
       fi
       ;;
   esac

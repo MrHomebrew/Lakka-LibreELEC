@@ -64,13 +64,8 @@ PKG_CONFIGURE_OPTS_HOST="--enable-static \
                          --disable-shared \
                          $UTILLINUX_CONFIG_DEFAULT \
                          --enable-uuidgen \
-<<<<<<< HEAD
-                         --enable-hexdump \
-                         --enable-libuuid"
-=======
                          --enable-libuuid
                          --enable-hexdump"
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 
 PKG_CONFIGURE_OPTS_INIT="$UTILLINUX_CONFIG_DEFAULT \
                          --enable-libblkid \

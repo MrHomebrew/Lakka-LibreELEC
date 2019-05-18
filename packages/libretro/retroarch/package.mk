@@ -64,13 +64,9 @@ if [ "$PROJECT" = "Switch" ]; then
    PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET pulseaudio"
 fi
 
-<<<<<<< HEAD
-if [ "$PROJECT" == "Switch" ]; then
-=======
 if [ "$VULKAN" == "nvidia-driver" ]; then
   RETROARCH_GL="--enable-vulkan --disable-x11 --disable-kms --disable-egl"
 elif [ "$PROJECT" == "Switch" ]; then
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
   RETROARCH_GL="--disable-kms --enable-x11 --disable-wayland --disable-opengles --enable-opengl"
 elif [ "$OPENGLES" == "no" ]; then
   RETROARCH_GL="--enable-kms"

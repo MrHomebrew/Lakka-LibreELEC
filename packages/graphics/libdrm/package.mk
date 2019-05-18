@@ -67,11 +67,7 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-udev \
                            --disable-cairo-tests \
                            --disable-manpages \
                            --disable-valgrind"
-<<<<<<< HEAD
-                           
-=======
 
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 if [ "$PROJECT" = "Switch" ]; then
   PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --enable-static"
 fi

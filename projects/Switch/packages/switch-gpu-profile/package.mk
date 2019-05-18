@@ -32,15 +32,11 @@ make_target() {
 
 makeinstall_target() {
   mkdir -p $INSTALL/usr/bin
-<<<<<<< HEAD
-  cp $PKG_DIR/scripts/gpu-profile $INSTALL/usr/bin
-=======
   if [ "$DEVICE" = "L4T" ]; then
     cp $PKG_DIR/scripts/gpu-profile-l4t $INSTALL/usr/bin/gpu-profile
   else
     cp $PKG_DIR/scripts/gpu-profile-mainline $INSTALL/usr/bin/gpu-profile
   fi
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 }
 
 post_install() {

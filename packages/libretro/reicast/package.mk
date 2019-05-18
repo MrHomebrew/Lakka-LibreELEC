@@ -47,11 +47,7 @@ make_target() {
         make platform=rpi FORCE_GLES=$REICAST_GLES HAVE_OPENMP=0
     fi
   else
-<<<<<<< HEAD
-    make platform=unix AS=${AS} CC_AS=${AS} ARCH=${ARCH} HAVE_OPENMP=0
-=======
     make platform=arm64 HAVE_OPENMP=0 FORCE_GLES=0 GLES=0 HAVE_OIT=1
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
   fi
 }
 

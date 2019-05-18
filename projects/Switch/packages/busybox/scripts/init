@@ -544,10 +544,7 @@
         fi
 
         if [ -n "$SPLASHIMAGE" -a -f "$SPLASHIMAGE" ]; then
-<<<<<<< HEAD
-=======
           cat /sys/class/graphics/fb0/modes > /sys/class/graphics/fb0/mode
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
           ply-image $SPLASHIMAGE > /dev/null 2>&1
         fi
 

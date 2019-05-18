@@ -17,11 +17,7 @@
 ################################################################################
 
 PKG_NAME="mesa"
-<<<<<<< HEAD
-PKG_VERSION="18.3.1"
-=======
 PKG_VERSION="19.0.3"
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
 PKG_SITE="http://www.mesa3d.org/"

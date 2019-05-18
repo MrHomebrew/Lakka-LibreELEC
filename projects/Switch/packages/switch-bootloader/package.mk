@@ -29,13 +29,6 @@ PKG_AUTORECONF="no"
 makeinstall_target() {
   mkdir -p $INSTALL/usr/share/bootloader/boot
   mkimage -A arm -T script -O linux -d $PKG_DIR/assets/boot.txt $BUILD/$PKG_NAME-$PKG_VERSION/boot.scr
-<<<<<<< HEAD
-  
-  cp -PRv $PKG_DIR/assets/splash.bmp $INSTALL/usr/share/bootloader/boot/splash.bmp
-  cp -PRv $PKG_DIR/assets/00-Lakka.ini $INSTALL/usr/share/bootloader/boot/00-Lakka.ini
-  cp -PRv $BUILD/$PKG_NAME-$PKG_VERSION/boot.scr $INSTALL/usr/share/bootloader/boot/boot.scr
-  cp -PRv $BUILD/switch-boot/coreboot.rom $INSTALL/usr/share/bootloader/boot/coreboot.rom
-=======
   mkimage -A arm -T script -O linux -d $PKG_DIR/assets/boot_uart.txt $BUILD/$PKG_NAME-$PKG_VERSION/boot_uart.scr
   mkimage -A arm -T script -O linux -d $PKG_DIR/assets/boot_usb.txt $BUILD/$PKG_NAME-$PKG_VERSION/boot_usb.scr
 
@@ -48,7 +41,6 @@ makeinstall_target() {
   if [ "$DEVICE" = "L4T" ]; then
     cp $(kernel_path)/arch/arm64/boot/dts/tegra210-icosa.dtb $(kernel_path)/arch/arm64/boot/dts/nvidia/tegra210-nintendo-switch.dtb
   fi
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
   cp -PRv $(kernel_path)/arch/arm64/boot/dts/nvidia/tegra210-nintendo-switch.dtb $INSTALL/usr/share/bootloader/boot/tegra210-nintendo-switch.dtb
 }
 

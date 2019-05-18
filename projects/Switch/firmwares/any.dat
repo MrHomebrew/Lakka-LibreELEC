@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-# GM20B firmware (HW Acceleration)
-nvidia/gm20b/*
-
-# T210 firmware (XUSB)
-nvidia/tegra210/*
-=======
 # GM20B firmware 
 nvidia/gm20b/*
 
@@ -12,13 +5,8 @@ nvidia/gm20b/*
 nvidia/tegra210/*
 tegra21x_xusb_firmware
 tegra210b01_xusb_firmware
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 
 # BRCM firmware (Bluetooth / Wi-Fi)
 brcm/brcmfmac4356-pcie.bin
 brcm/brcmfmac4356-pcie.txt
-<<<<<<< HEAD
-brcm/BCM4356A3.hcd
-=======
 brcm/BCM.hcd
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b

@@ -160,11 +160,7 @@ post_makeinstall_target() {
     if [ -f $INSTALL/usr/lib/xorg/modules/extensions/libglx.so -a "$DEVICE" != "L4T" ]; then
       mv $INSTALL/usr/lib/xorg/modules/extensions/libglx.so \
          $INSTALL/usr/lib/xorg/modules/extensions/libglx_mesa.so # rename to cooperate with nvidia drivers
-<<<<<<< HEAD
-      ln -sf /var/lib/libglx.so $INSTALL/usr/lib/xorg/modules/extensions/libglx.so
-=======
         ln -sf /var/lib/libglx.so $INSTALL/usr/lib/xorg/modules/extensions/libglx.so
->>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
     fi
   fi
 
