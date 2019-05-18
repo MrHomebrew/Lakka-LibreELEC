@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="asplib"
-PKG_VERSION="da66f51"
+PKG_VERSION="be7fac8"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/AchimTuran/asplib"

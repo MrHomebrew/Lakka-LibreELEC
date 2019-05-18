@@ -19,7 +19,7 @@
 ################################################################################
 
 PKG_NAME="pcsx_rearmed"
-PKG_VERSION="28ea3e2"
+PKG_VERSION="4b7520c"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv2"
@@ -44,6 +44,8 @@ make_target() {
     make -f Makefile.libretro HAVE_NEON=1 USE_DYNAREC=1 BUILTIN_GPU=neon
   elif [ "$ARCH" == "arm" ]; then
     make -f Makefile.libretro HAVE_NEON=0 USE_DYNAREC=1
+  elif [ "$ARCH" == "aarch64" ]; then
+    make -f Makefile.libretro platform=arm64
   else
     make -f Makefile.libretro
   fi

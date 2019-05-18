@@ -13,4 +13,8 @@ diff -Naur util-linux-2.29/configure.ac util-linux-2.29.patch/configure.ac
 +UL_BUILD_INIT([hexdump])
  AM_CONDITIONAL([BUILD_HEXDUMP], [test "x$build_hexdump" = xyes])
  
+<<<<<<< HEAD
  UL_BUILD_INIT([rev], [yes])
+=======
+ UL_BUILD_INIT([rev], [yes])
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b

@@ -104,9 +104,15 @@ index c732d9a..f1620da 100644
 +	SOURCES_C +=\
 +		$(NATIVEDIR)/gfx_es2/gl3stub.c \
 +		$(NATIVEDIR)/math/fast/fast_math.c \
+<<<<<<< HEAD
 +		$(NATIVEDIR)/math/fast/fast_matrix.c \ 
 +	SOURCES_CXX +=\
 +		$(COREDIR)/Util/AudioFormatNEON.cpp
+=======
++		$(NATIVEDIR)/math/fast/fast_matrix.c
++	SOURCES_CXX +=\
++		$(COREDIR)/Util/AudioFormatNEON.cpp $(EXTDIR)/glslang/SPIRV/SpvPostProcess.cpp
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
  endif
  
  SOURCES_C += $(EXTDIR)/glew/glew.c

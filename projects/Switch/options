@@ -33,12 +33,25 @@
   # Additional kernel make parameters (for example to specify the u-boot loadaddress)
     KERNEL_MAKE_EXTRACMD="dtbs"
 
+<<<<<<< HEAD
   # Kernel to use. values can be:
   # default:  default mainline kernel
     LINUX="custom"
     KERNEL_VERSION="06fb77bb316e3ce08eb220eef4fb2fbf5d55cdcb"
     KERNEL_URL="https://gitlab.com/ByLaws/linux-switch/-/archive/$KERNEL_VERSION/linux-$KERNEL_VERSION.tar.gz"
 
+=======
+  # Kernel to use
+  case $DEVICE in
+    L4T)
+      # L4T uses an entirely different linux package
+      ;;
+    mainline)
+      LINUX="custom"
+      KERNEL_VERSION="06fb77bb316e3ce08eb220eef4fb2fbf5d55cdcb"
+      KERNEL_URL="https://gitlab.com/ByLaws/linux-switch/-/archive/$KERNEL_VERSION/linux-$KERNEL_VERSION.tar.gz"
+    esac
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 
 ################################################################################
 # setup build defaults
@@ -61,7 +74,10 @@
     PULSEAUDIO_SUPPORT="yes"
 
   # OpenGL(X) implementation to use (no / Mesa)
+<<<<<<< HEAD
     OPENGL="mesa"
+=======
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
     OPENGLES="no"
 
   # include uvesafb support (yes / no)

@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="rpi-cirrus-config"
-PKG_VERSION="0.0.1"
+PKG_VERSION="0.0.2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/HiassofT/rpi-cirrus-config"

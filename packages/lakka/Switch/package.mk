@@ -25,12 +25,23 @@ PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/lakkatv/Lakka"
 PKG_URL=""
+<<<<<<< HEAD
 PKG_DEPENDS_TARGET="freetype libdrm pixman $OPENGL libepoxy glu retroarch $LIBRETRO_CORES switch-gpu-profile switch-cpu-profile xinput xbindkeys xdotool mergerfs rewritefs"
+=======
+PKG_DEPENDS_TARGET="freetype libdrm pixman $OPENGL libepoxy glu retroarch $LIBRETRO_CORES switch-gpu-profile switch-cpu-profile xinput xbindkeys xdotool mergerfs rewritefs alsa-plugins"
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 PKG_PRIORITY="optional"
 PKG_SECTION="virtual"
 PKG_SHORTDESC="Lakka metapackage for Switch"
 PKG_LONGDESC=""
 
+<<<<<<< HEAD
+=======
+if [ "$DEVICE" = "L4T" ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET libdrm libXext libXdamage libXfixes libXxf86vm libxcb libX11 libXrandr"
+fi
+
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 

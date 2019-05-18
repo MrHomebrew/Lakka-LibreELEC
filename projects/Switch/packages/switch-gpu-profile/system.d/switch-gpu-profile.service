@@ -1,6 +1,11 @@
 [Unit]
 Description=Switch GPU Profile
 ConditionKernelCommandLine=!installer
+<<<<<<< HEAD
+=======
+Requires=xorg.service
+After=xorg.service
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 
 [Service]
 Environment=TERM=linux

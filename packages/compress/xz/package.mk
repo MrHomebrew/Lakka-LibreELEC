@@ -17,11 +17,11 @@
 ################################################################################
 
 PKG_NAME="xz"
-PKG_VERSION="5.2.3"
+PKG_VERSION="5.3.1alpha"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://tukaani.org/xz/"
-PKG_URL="http://tukaani.org/xz/$PKG_NAME-$PKG_VERSION.tar.bz2"
+PKG_URL="http://tukaani.org/xz/$PKG_NAME-$PKG_VERSION.tar.xz"
 PKG_DEPENDS_HOST="ccache:host"
 PKG_SECTION="toolchain/archivers"
 PKG_SHORTDESC="xz: a free general-purpose data compression software with high compression ratio."

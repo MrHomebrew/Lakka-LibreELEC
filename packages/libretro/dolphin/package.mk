@@ -19,7 +19,11 @@
 ################################################################################
 
 PKG_NAME="dolphin"
+<<<<<<< HEAD
 PKG_VERSION="7796f12"
+=======
+PKG_VERSION="1d973f4"
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 PKG_REV="1"
 PKG_ARCH="x86_64 aarch64"
 PKG_LICENSE="GPLv2"
@@ -43,10 +47,16 @@ PKG_CMAKE_SCRIPT="$PKG_BUILD/CMakeLists.txt"
 
 PKG_CMAKE_OPTS_TARGET="-DLIBRETRO=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC} -DENABLE_X11=OFF"
 
+<<<<<<< HEAD
 post_patch() {
   cd $PKG_BUILD
   git revert --no-edit -n 504c1ebaa936e3854bb7204340c5501413e19523 # "static link libgcc and libstdc++ on non-Clang/MSVC"
 }
+=======
+if [ "$PROJECT" == "Generic_VK_nvidia" ]; then
+  PKG_VERSION="a5bce7d"
+fi
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 
 pre_make_target() {
   # build fix for cross-compiling Dolphin, from Dolphin forums

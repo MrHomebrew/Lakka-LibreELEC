@@ -17,13 +17,13 @@
 ################################################################################
 
 PKG_NAME="vulkan-loader"
-PKG_VERSION="1.0.61.1"
+PKG_VERSION="1.1.73.0"
 PKG_ARCH="any"
 PKG_LICENSE="Apache 2.0"
 PKG_SITE="https://www.khronos.org"
 PKG_URL="https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers/archive/sdk-$PKG_VERSION.tar.gz"
 PKG_SOURCE_DIR="Vulkan-*$PKG_VERSION*"
-PKG_DEPENDS_TARGET="toolchain cmake:host"
+PKG_DEPENDS_TARGET="toolchain cmake:host Python3 spirv-tools glslang"
 PKG_SECTION="graphics"
 PKG_SHORTDESC="Vulkan Installable Client Driver (ICD) Loader."
 
@@ -31,14 +31,13 @@ PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
 PKG_CMAKE_OPTS_TARGET="-DBUILD_WSI_WAYLAND_SUPPORT=off \
-                       -DBUILD_WSI_XCB_SUPPORT=off \
-                       -DBUILD_WSI_XLIB_SUPPORT=off \
+                       -DBUILD_WSI_XCB_SUPPORT=on \
+                       -DBUILD_WSI_XLIB_SUPPORT=on \
                        -DBUILD_WSI_MIR_SUPPORT=off \
-                       -DCMAKE_SYSTEM_PROCESSOR=arm \
                        -DBUILD_TESTS=off \
-                       -DBUILD_LAYERS=off \
-                       -DBUILD_DEMOS=off \
-                       -DBUILD_VKJSON=off"
+                       -DBUILD_LAYERS=on \
+                       -DBUILD_DEMOS=on \
+                       -DBUILD_VKJSON=on"
 
 pre_configure_target() {
   cd ..

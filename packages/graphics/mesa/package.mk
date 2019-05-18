@@ -17,7 +17,11 @@
 ################################################################################
 
 PKG_NAME="mesa"
+<<<<<<< HEAD
 PKG_VERSION="18.3.1"
+=======
+PKG_VERSION="19.0.3"
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
 PKG_SITE="http://www.mesa3d.org/"
@@ -99,7 +103,9 @@ PKG_CONFIGURE_OPTS_TARGET="CC_FOR_BUILD=$HOST_CC \
                            --with-gallium-drivers=$GALLIUM_DRIVERS \
                            --with-dri-drivers=$DRI_DRIVERS \
                            --with-vulkan-drivers=no \
+			   --enable-autotools \
                            --with-sysroot=$SYSROOT_PREFIX"
+
 
 pre_configure_target() {
   export LIBS="-lxcb-dri3 -lxcb-dri2 -lxcb-xfixes -lxcb-present -lxcb-sync -lxshmfence -lz"
@@ -113,5 +119,11 @@ post_makeinstall_target() {
     ln -sf libGL.so.1 $INSTALL/usr/lib/libGL.so
     ln -sf /var/lib/libGL.so $INSTALL/usr/lib/libGL.so.1
     mv $INSTALL/usr/lib/libGL.so.1.2.0 $INSTALL/usr/lib/libGL_mesa.so.1
+  fi
+  if [ "$DEVICE" = "L4T" ]; then
+    mv $INSTALL/usr/lib/libglapi* $INSTALL/
+    rm -rf $INSTALL/usr/lib/*.so*
+    rm -rf $INSTALL/usr/lib/*/*.so*
+    mv $INSTALL/libglapi* $INSTALL/usr/lib/
   fi
 }

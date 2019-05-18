@@ -19,9 +19,9 @@
 ################################################################################
 
 PKG_NAME="reicast"
-PKG_VERSION="2abb342"
+PKG_VERSION="8c38fce"
 PKG_REV="1"
-PKG_ARCH="arm i386 x86_64"
+PKG_ARCH="arm i386 x86_64 aarch64"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/libretro/reicast-emulator"
 PKG_GIT_URL="$PKG_SITE"
@@ -47,7 +47,11 @@ make_target() {
         make platform=rpi FORCE_GLES=$REICAST_GLES HAVE_OPENMP=0
     fi
   else
+<<<<<<< HEAD
     make platform=unix AS=${AS} CC_AS=${AS} ARCH=${ARCH} HAVE_OPENMP=0
+=======
+    make platform=arm64 HAVE_OPENMP=0 FORCE_GLES=0 GLES=0 HAVE_OIT=1
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
   fi
 }
 

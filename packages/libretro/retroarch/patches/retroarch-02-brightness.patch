@@ -1,0 +1,20 @@
+diff --git a/switch_performance_profiles_copy.h b/switch_performance_profiles.h
+index 2ee1fd9..1084ac4 100644
+--- a/switch_performance_profiles_copy.h
++++ b/switch_performance_profiles.h
+@@ -57,9 +57,14 @@ static int SWITCH_BRIGHTNESS[] = {
+     50,
+     60,
+     70,
++    75,
+     80,
++    85,
+     90,
+-    100};
++    95,
++    100,
++    110,
++    120};
+ #endif
+ 
+ static char *SWITCH_CPU_PROFILES[] = {

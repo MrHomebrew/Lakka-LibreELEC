@@ -1,6 +1,10 @@
 [Unit]
 Description=Overlays directory
+<<<<<<< HEAD
 Before=retroarch.target
+=======
+Before=retroarch.service
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 After=storage.mount
 After=systemd-tmpfiles-setup.service
 

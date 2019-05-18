@@ -25,6 +25,10 @@ PKG_DEPENDS_HOST="gcc-linaro-aarch64-linux-gnu:host gcc-linaro-arm-linux-gnueabi
 PKG_DEPENDS_TARGET="toolchain switch-coreboot:host switch-u-boot gcc-linaro-aarch64-linux-gnu:host gcc-linaro-arm-linux-gnueabi:host curl:host"
 PKG_SITE="https://github.com/lakka-switch/coreboot"
 PKG_GIT_URL="$PKG_SITE"
+<<<<<<< HEAD
+=======
+PKG_CLEAN="switch-bootloader"
+>>>>>>> 654f30666a863476dfba1a85ce51a31089d23d6b
 
 PKG_AUTORECONF="no"
 

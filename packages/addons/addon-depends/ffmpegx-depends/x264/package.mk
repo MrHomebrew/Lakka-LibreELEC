@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="x264"
-PKG_VERSION="snapshot-20171015-2245"
+PKG_VERSION="snapshot-20190509-2245"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.videolan.org/developers/x264.html"
 PKG_URL="https://download.videolan.org/x264/snapshots/$PKG_NAME-$PKG_VERSION.tar.bz2"
