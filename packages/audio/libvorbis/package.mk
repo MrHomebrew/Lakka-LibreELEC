@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="libvorbis"
-PKG_VERSION="1.3.5"
+PKG_VERSION="1.3.6"
 PKG_ARCH="any"
 PKG_LICENSE="BSD"
 PKG_SITE="http://www.vorbis.com/"

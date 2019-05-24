@@ -27,9 +27,10 @@ PKG_NEED_UNPACK="$LINUX_DEPENDS"
 PKG_SECTION="linux"
 PKG_SHORTDESC="linux26: The Linux kernel 2.6 precompiled kernel binary image and modules"
 PKG_LONGDESC="This package contains a precompiled kernel image and the modules."
+
 case "$LINUX" in
   linux-odroidxu3)
-    PKG_VERSION="08a0e22"
+    PKG_VERSION="ab1ca974"
     PKG_URL="https://github.com/hardkernel/linux/archive/$PKG_VERSION.tar.gz"
     ;;
   linux-odroidc-3.10.y)
@@ -82,7 +83,8 @@ case "$LINUX" in
     PKG_PATCH_DIRS="default-rpi"
     ;;
   rockchip-4.4)
-    PKG_VERSION="eae92ae2"
+    PKG_VERSION="aa8bacf821e5c8ae6dd8cae8d64011c741659945"
+    PKG_SHA256="a2760fe89a15aa7be142fd25fb08ebd357c5d855c41f1612cf47c6e89de39bb3"
     PKG_URL="https://github.com/rockchip-linux/kernel/archive/$PKG_VERSION.tar.gz"
     PKG_SOURCE_DIR="kernel-$PKG_VERSION*"
     PKG_PATCH_DIRS="rockchip-4.4"
@@ -98,20 +100,38 @@ case "$LINUX" in
     ;;
 esac
 
+if [ "$PROJECT" = "Switch" ]; then
+  PKG_SOURCE_DIR="linux-switch-$PKG_VERSION"
+fi
+
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
 if [ "$TARGET_KERNEL_ARCH" = "arm64" -a "$TARGET_ARCH" = "arm" ]; then
-  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET gcc-linaro-aarch64-elf:host"
-  export PATH=$TOOLCHAIN/lib/gcc-linaro-aarch64-elf/bin/:$PATH
-  TARGET_PREFIX=aarch64-elf-
-  PKG_MAKE_OPTS_HOST="ARCH=$TARGET_ARCH headers_check"
+  if [ "$PROJECT" = "Switch" ]; then
+    PKG_DEPENDS_HOST="$PKG_DEPENDS_HOST gcc-linaro-aarch64-linux-gnu:host"
+    PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET gcc-linaro-aarch64-linux-gnu:host"
+    export PATH=$TOOLCHAIN/lib/gcc-linaro-aarch64-linux-gnu/bin/:$PATH
+    TARGET_PREFIX=aarch64-linux-gnu-
+    OLD_CROSS_COMPILE=$CROSS_COMPILE
+    export CROSS_COMPILE=$TARGET_PREFIX # necessary for Linux 5
+    PKG_MAKE_OPTS_HOST="ARCH=$TARGET_ARCH headers_check"
+  else
+    PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET gcc-linaro-aarch64-elf:host"
+    export PATH=$TOOLCHAIN/lib/gcc-linaro-aarch64-elf/bin/:$PATH
+    TARGET_PREFIX=aarch64-elf-
+    OLD_CROSS_COMPILE=$CROSS_COMPILE
+    export CROSS_COMPILE=$TARGET_PREFIX # necessary for Linux 5
+    PKG_MAKE_OPTS_HOST="ARCH=$TARGET_ARCH headers_check"
+  fi
 else
  PKG_MAKE_OPTS_HOST="ARCH=$TARGET_KERNEL_ARCH headers_check"
 fi
 
 if [ "$PROJECT" = "Switch" ]; then
-    PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET kernel-firmware"
+    PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET kernel-firmware openssl:host"
+    export C_INCLUDE_PATH="$TOOLCHAIN/include:$C_INCLUDE_PATH"
+    export LIBRARY_PATH="$TOOLCHAIN/lib:$LIBRARY_PATH"
 fi
 
 if [ "$TARGET_ARCH" = "x86_64" ]; then
@@ -214,16 +234,16 @@ pre_make_target() {
     FW_LIST="$(find $PKG_BUILD/external-firmware \( -type f -o -type l \) \( -iname '*.bin' -o -iname '*.fw' -o -path '*/intel-ucode/*' \) | sed 's|.*external-firmware/||' | sort | xargs)"
     sed -i "s|CONFIG_EXTRA_FIRMWARE=.*|CONFIG_EXTRA_FIRMWARE=\"${FW_LIST}\"|" $PKG_BUILD/.config
   fi
-  
+
   if [ "$PROJECT" = "Switch" ]; then
     mkdir -p $PKG_BUILD/external-firmware
     cp -a $(get_build_dir kernel-firmware)/{nvidia,brcm} $PKG_BUILD/external-firmware
-    
+
     FW_LIST="$(find $PKG_BUILD/external-firmware \( -type f -o -type l \) \( -iname '*.bin' -o -iname '*.txt' -o -iname '*.hcd' \) | sed 's|.*external-firmware/||' | sort | xargs)"
     sed -i "s|CONFIG_EXTRA_FIRMWARE=.*|CONFIG_EXTRA_FIRMWARE=\"${FW_LIST}\"|" $PKG_BUILD/.config
   fi
 
-  make oldconfig
+  make olddefconfig # i'm sorry oldconfig but you are too annoying
 
   # regdb
   cp $(get_build_dir wireless-regdb)/db.txt $PKG_BUILD/net/wireless/db.txt
@@ -309,4 +329,6 @@ post_install() {
 
   # bluez looks in /etc/firmware/
     ln -sf /usr/lib/firmware/ $INSTALL/etc/firmware
+
+  export CROSS_COMPILE=$OLD_CROSS_COMPILE
 }

@@ -19,7 +19,7 @@
 ################################################################################
 
 PKG_NAME="virtualjaguar"
-PKG_VERSION="2ce1ec0"
+PKG_VERSION="0bbea4e"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv3"

@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="fdk-aac"
-PKG_VERSION="0.1.5"
+PKG_VERSION="2.0.0"
 PKG_SHA256="ff53d1d01cacc29c071e23192dfefa93bdbeaf775fc5d296259b4859d0306b79"
 PKG_ARCH="any"
 PKG_LICENSE="other"

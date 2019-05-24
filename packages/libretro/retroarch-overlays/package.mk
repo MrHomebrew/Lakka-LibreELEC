@@ -19,7 +19,7 @@
 ################################################################################
 
 PKG_NAME="retroarch-overlays"
-PKG_VERSION="3bbea8f"
+PKG_VERSION="b44d6cf"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"

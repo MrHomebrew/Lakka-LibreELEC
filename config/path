@@ -19,17 +19,18 @@ set -e
 HOST_NAME=`$LOCAL_CC -dumpmachine`
 TARGET_NAME=$TARGET_GCC_ARCH-libreelec-linux-gnu${TARGET_ABI}
 
-BUILD=$ROOT/$BUILD_BASE.$DISTRONAME-${DEVICE:-$PROJECT}.$TARGET_ARCH-$LIBREELEC_VERSION
+BUILD=$ROOT/$BUILD_BASE.$DISTRONAME-${BOARD:-${DEVICE:-$PROJECT}}.$TARGET_ARCH-$LIBREELEC_VERSION
 if [ "$LIBREELEC_VERSION" = "devel" ] ; then
-  BUILD=$ROOT/$BUILD_BASE.$DISTRONAME-${DEVICE:-$PROJECT}.$TARGET_ARCH-$OS_VERSION-$LIBREELEC_VERSION
+  BUILD=$ROOT/$BUILD_BASE.$DISTRONAME-${BOARD:-${DEVICE:-$PROJECT}}.$TARGET_ARCH-$OS_VERSION-$LIBREELEC_VERSION
 fi
 
 if [ -n "$BUILD_SUFFIX" ]; then
   BUILD=$BUILD-$BUILD_SUFFIX
 fi
 
-# Uncomment this line to ignore version when building
-#BUILD=$ROOT/$BUILD_BASE.$DISTRONAME-${DEVICE:-$PROJECT}.$TARGET_ARCH
+if [ "$IGNORE_VERSION" = "1" ]; then
+  BUILD=$ROOT/$BUILD_BASE.$DISTRONAME-${BOARD:-${DEVICE:-$PROJECT}}.$TARGET_ARCH
+fi
 
 TARGET_IMG=$ROOT/$TARGET
 TARGET_ADDONS="$TARGET_IMG/$ADDONS/$ADDON_PATH"
@@ -87,6 +88,7 @@ SED="sed -i"
   PKG_ADDON_TYPE=""
   PKG_DISCLAIMER=""
   PKG_MAINTAINER=""
+  PKG_CLEAN=""
 
   if [ -n "$1" ]; then
     _PKG_ROOT_NAME=${1%:*}
@@ -96,9 +98,15 @@ SED="sed -i"
     PKG_DIR=""
 
     # If the package caches are unset, then populate them
-    if [ -z "${_CACHE_PACKAGE_LOCAL+x}" -o -z "${_CACHE_PACKAGE_GLOBAL+x}" ]; then
+    if [ -z "${_CACHE_PACKAGE_DEVICE+x}" -o -z "${_CACHE_PACKAGE_LOCAL+x}" -o -z "${_CACHE_PACKAGE_GLOBAL+x}" ]; then
+      _CACHE_PACKAGE_DEVICE=""
       _CACHE_PACKAGE_LOCAL=""
       _CACHE_PACKAGE_GLOBAL=""
+
+      # cache device folder for a package
+      for DIR in $(find $ROOT/projects/$PROJECT/devices/$DEVICE/packages -type d 2>/dev/null); do
+        [ -r "$DIR/package.mk" ] && _CACHE_PACKAGE_DEVICE+="${DIR}${_ANCHOR}\n"
+      done
 
       # cache project folder for a package
       for DIR in $(find $ROOT/projects/$PROJECT/packages -type d 2>/dev/null); do
@@ -110,8 +118,18 @@ SED="sed -i"
         [ -r "$DIR/package.mk" ] && _CACHE_PACKAGE_GLOBAL+="${DIR}${_ANCHOR}\n"
       done
 
-      export _CACHE_PACKAGE_LOCAL _CACHE_PACKAGE_GLOBAL
+      export _CACHE_PACKAGE_DEVICE _CACHE_PACKAGE_LOCAL _CACHE_PACKAGE_GLOBAL
     fi
+
+    # Check for any available device package in preference to a local package
+    for DIR in $(echo -e "${_CACHE_PACKAGE_DEVICE}" | grep -F "/${_PKG_ROOT_NAME}${_ANCHOR}"); do
+      DIR="${DIR%${_ANCHOR}}"
+      # found first, set $PKG_DIR
+      PKG_DIR="$DIR"
+      # keep track of dirs with package.mk for detecting multiple folders
+      _ALL_DIRS+="${DIR}\n"
+      _FOUND=$((_FOUND+1))
+    done
 
     # Check for any available local package in preference to a global package
     for DIR in $(echo -e "${_CACHE_PACKAGE_LOCAL}" | grep -F "/${_PKG_ROOT_NAME}${_ANCHOR}"); do
@@ -158,7 +176,7 @@ SED="sed -i"
   #
   # Any $PKG_URL that references more than a single url will abort
   # the build as these are no longer supported - use mkpkg instead.
-  if [ -n "$PKG_URL" -a -z "$PKG_SOURCE_NAME" ]; then
+  if [ -n "$PKG_URL" -a -z "$PKG_SOURCE_NAME" -a -z "$PKG_GIT_URL" ]; then
     if [[ $PKG_URL =~ .*\ .* ]]; then
       echo "Error - packages with multiple urls are no longer supported, use mkpkg:"
       echo "$PKG_URL"
@@ -175,13 +193,17 @@ SED="sed -i"
       *.tar.bz2 | *.tar.gz | *.tar.xz)
         PKG_SOURCE_NAME=${PKG_NAME}-${PKG_VERSION}.tar.${PKG_SOURCE_NAME##*\.}
         ;;
-       *.diff | *.patch | *.diff.bz2 | *.patch.bz2 | patch-*.bz2 | *.diff.gz | *.patch.gz | patch-*.gz)
+      *.diff | *.patch | *.diff.bz2 | *.patch.bz2 | patch-*.bz2 | *.diff.gz | *.patch.gz | patch-*.gz)
         PKG_SOURCE_NAME=$PKG_SOURCE_NAME
         ;;
       *)
         PKG_SOURCE_NAME=${PKG_NAME}-${PKG_VERSION}.${PKG_SOURCE_NAME##*\.}
         ;;
     esac
+  fi
+
+  if [ -n "$PKG_GIT_URL" -a -z "$PKG_SOURCE_NAME" ]; then
+    PKG_SOURCE_NAME=${PKG_NAME}-${PKG_VERSION}.tar.xz
   fi
 
   PKG_BUILD="$BUILD/${PKG_NAME}-${PKG_VERSION}"

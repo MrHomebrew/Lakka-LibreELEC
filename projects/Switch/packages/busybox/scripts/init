@@ -67,7 +67,7 @@
   [ -z "$MACHINE_UID" ] && MACHINE_UID="$(cat /sys/class/net/eth0/address 2>/dev/null | tr -d :)"
 
   # hide kernel log messages on console
-  echo '1 4 1 7' > /proc/sys/kernel/printk
+  # echo '1 4 1 7' > /proc/sys/kernel/printk
 
   # set ondemand up_threshold
   if [ -e /sys/devices/system/cpu/cpufreq/ondemand/up_threshold ] ; then
@@ -544,6 +544,7 @@
         fi
 
         if [ -n "$SPLASHIMAGE" -a -f "$SPLASHIMAGE" ]; then
+          cat /sys/class/graphics/fb0/modes > /sys/class/graphics/fb0/mode
           ply-image $SPLASHIMAGE > /dev/null 2>&1
         fi
 
@@ -652,6 +653,10 @@
     wakeonlan
 
     mount_part "$boot" "/flash" "rw,noatime"
+
+    mkdir -p /flash/lakka/logs
+    /usr/bin/busybox dmesg > /flash/lakka/logs/last_dmesg.log
+    sync
   }
 
   mount_storage() {
@@ -976,21 +981,21 @@
     mount --move /flash /sysroot/flash
     mount --move /storage /sysroot/storage
 
-    if [ ! -d "/sysroot/usr/lib/modules/$(uname -r)/" -a -f "/sysroot/usr/lib/systemd/systemd" ]; then
-      echo ""
-      echo "NEVER TOUCH boot= in extlinux.conf / cmdline.txt!"
-      echo "If you don't know what you are doing,"
-      echo "your installation is now broken."
-      echo ""
-      StartProgress countdown "Normal startup in 60s... " 60 "NOW"
-    fi
+    #if [ ! -d "/sysroot/usr/lib/modules/$(uname -r)/" -a -f "/sysroot/usr/lib/systemd/systemd" ]; then
+      #echo ""
+      #echo "NEVER TOUCH boot= in extlinux.conf / cmdline.txt!"
+      #echo "If you don't know what you are doing,"
+      #echo "your installation is now broken."
+      #echo ""
+      #StartProgress countdown "Normal startup in 60s... " 60 "NOW"
+    #fi
 
     [ -f "/sysroot/usr/lib/systemd/systemd" ] || error "final_check" "Could not find systemd!"
   }
 
   # If the network is up (due to the use of the "ip" kernel parameter) and a DNS
   # server is known, allow the libc resolver to use it
-  grep '^\(nameserver\|domain\) ' /proc/net/pnp | grep -v '^nameserver 0\.0\.0\.0$' > /etc/resolv.conf
+  # grep '^\(nameserver\|domain\) ' /proc/net/pnp | grep -v '^nameserver 0\.0\.0\.0$' > /etc/resolv.conf
 
   if [ "${boot%%=*}" = "FILE" ]; then
     error "check arguments" "boot argument can't be FILE type..."

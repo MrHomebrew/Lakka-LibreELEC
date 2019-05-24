@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="libjpeg-turbo"
-PKG_VERSION="1.5.0"
+PKG_VERSION="2.0.2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://libjpeg-turbo.virtualgl.org/"

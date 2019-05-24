@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="autoconf-archive"
-PKG_VERSION="2015.09.25"
+PKG_VERSION="2019.01.06"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://www.gnu.org/software/autoconf-archive/"

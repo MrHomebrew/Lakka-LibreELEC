@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="fluidsynth"
-PKG_VERSION="1.1.6"
+PKG_VERSION="2.0.5"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="http://fluidsynth.org/"

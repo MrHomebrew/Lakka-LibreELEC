@@ -19,13 +19,13 @@
 ################################################################################
 
 PKG_NAME="retroarch"
-PKG_VERSION="2a2e732"
+PKG_VERSION="5de6662"
 PKG_REV="11"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/libretro/RetroArch"
 PKG_GIT_URL="$PKG_SITE"
-PKG_DEPENDS_TARGET="toolchain alsa-lib freetype zlib retroarch-assets retroarch-overlays core-info retroarch-joypad-autoconfig glsl-shaders lakka-update libretro-database ffmpeg libass libvdpau libxkbfile xkeyboard-config libxkbcommon joyutils sixpair empty"
+PKG_DEPENDS_TARGET="toolchain alsa-lib freetype zlib retroarch-assets retroarch-overlays core-info retroarch-joypad-autoconfig lakka-update libretro-database ffmpeg libass libvdpau libxkbfile xkeyboard-config libxkbcommon joyutils sixpair empty"
 PKG_PRIORITY="optional"
 PKG_SECTION="libretro"
 PKG_SHORTDESC="Reference frontend for the libretro API."
@@ -34,10 +34,22 @@ PKG_LONGDESC="RetroArch is the reference frontend for the libretro API. Popular 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
+if [ "$PROJECT" == "Generic_VK_nvidia" ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET slang-shaders"
+else
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET glsl-shaders"
+fi
+
 if [ "$OPENGLES_SUPPORT" = yes ]; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OPENGLES"
-else
+fi
+
+if [ "$OPENGL_SUPPORT" == yes ]; then
   PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $OPENGL"
+fi
+
+if [ "$VULKAN_SUPPORT" == yes ]; then
+  PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET $VULKAN vulkan-loader slang-shaders"
 fi
 
 if [ "$SAMBA_SUPPORT" = yes ]; then
@@ -52,7 +64,9 @@ if [ "$PROJECT" = "Switch" ]; then
    PKG_DEPENDS_TARGET="$PKG_DEPENDS_TARGET pulseaudio"
 fi
 
-if [ "$PROJECT" == "Switch" ]; then
+if [ "$VULKAN" == "nvidia-driver" ]; then
+  RETROARCH_GL="--enable-vulkan --disable-x11 --disable-kms --disable-egl"
+elif [ "$PROJECT" == "Switch" ]; then
   RETROARCH_GL="--disable-kms --enable-x11 --disable-wayland --disable-opengles --enable-opengl"
 elif [ "$OPENGLES" == "no" ]; then
   RETROARCH_GL="--enable-kms"
@@ -73,6 +87,10 @@ elif [ "$OPENGLES" == "allwinner-mali" ] || [ "$OPENGLES" == "odroidxu3-mali" ];
    RETROARCH_GL="--enable-opengles --enable-kms --disable-x11"
 fi
 
+if [ "$DEVICE" = "L4T" ]; then
+   RETROARCH_GL="$RETROARCH_GL --enable-vulkan --disable-egl --disable-vulkan_display"
+fi
+
 if [[ "$TARGET_FPU" =~ "neon" ]]; then
   RETROARCH_NEON="--enable-neon"
 fi
@@ -80,22 +98,27 @@ fi
 TARGET_CONFIGURE_OPTS=""
 PKG_CONFIGURE_OPTS_TARGET="--disable-vg \
                            --disable-sdl \
+                           --disable-ssl \
                            $RETROARCH_GL \
                            $RETROARCH_NEON \
                            --enable-zlib \
                            --enable-freetype"
-                           
+              
 if [ "$PROJECT" = "Switch" ]; then
    PKG_CONFIGURE_OPTS_TARGET="$PKG_CONFIGURE_OPTS_TARGET --enable-pulse"
 fi
-                         
+      
 
 pre_configure_target() {
   cd $PKG_BUILD
 }
 
 make_target() {
-  make V=1 HAVE_LAKKA=1 HAVE_ZARCH=0
+  if [ "$PROJECT" = "Switch" ]; then
+    make V=1 HAVE_LAKKA=1 HAVE_LAKKA_SWITCH=1 HAVE_ZARCH=0
+  else
+    make V=1 HAVE_LAKKA=1 HAVE_ZARCH=0
+  fi
   make -C gfx/video_filters compiler=$CC extra_flags="$CFLAGS"
   make -C libretro-common/audio/dsp_filters compiler=$CC extra_flags="$CFLAGS"
 }
@@ -189,6 +212,12 @@ makeinstall_target() {
   echo "playlist_cores = \"$RA_PLAYLIST_CORES\"" >> $INSTALL/etc/retroarch.cfg
   echo "playlist_entry_rename = \"false\"" >> $INSTALL/etc/retroarch.cfg
   echo "playlist_entry_remove = \"false\"" >> $INSTALL/etc/retroarch.cfg
+
+  # Generic_VK_nvidia
+  if [ "$PROJECT" == "Generic_VK_nvidia" ]; then
+    echo "video_context_driver = \"khr_display\"" >> $INSTALL/etc/retroarch.cfg
+    echo "video_driver = \"vulkan\"" >> $INSTALL/etc/retroarch.cfg
+  fi
 
   # Gamegirl
   if [ "$PROJECT" == "Gamegirl" ]; then

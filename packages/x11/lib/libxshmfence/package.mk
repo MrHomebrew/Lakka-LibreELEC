@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="libxshmfence"
-PKG_VERSION="1.2"
+PKG_VERSION="1.3"
 PKG_ARCH="any"
 PKG_LICENSE="OSS"
 PKG_SITE="http://www.X.org"
@@ -30,7 +30,7 @@ PKG_LONGDESC="libxshmfence is the Shared memory 'SyncFence' synchronization prim
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared"
+PKG_CONFIGURE_OPTS_TARGET="--enable-static --enable-shared"
 
 pre_configure_target() {
   CFLAGS="$CFLAGS -fPIC -DPIC"
