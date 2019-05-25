@@ -18,9 +18,9 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-PKG_NAME="mupen64plus-next"
-PKG_VERSION="96608ba"
-PKG_GIT_BRANCH="GLideN64"
+PKG_NAME="mupen64plus-next-oldgliden"
+PKG_VERSION="73ca3a8"
+PKG_GIT_BRANCH="mupen_next"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv2"
@@ -79,5 +79,5 @@ make_target() {
 
 makeinstall_target() {
   mkdir -p $INSTALL/usr/lib/libretro
-  cp mupen64plus_next_libretro.so $INSTALL/usr/lib/libretro/
+  cp mupen64plus_next_libretro.so $INSTALL/usr/lib/libretro/mupen64plus_next_oldgliden_libretro.so
 }

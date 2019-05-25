@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="spirv-tools"
-PKG_VERSION="d0a1f5a"
+PKG_VERSION="42abaa0"
 PKG_ARCH="any"
 PKG_LICENSE="Apache 2.0"
 PKG_SITE="https://github.com/KhronosGroup/SPIRV-Tools"

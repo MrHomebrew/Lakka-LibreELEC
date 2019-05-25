@@ -21,7 +21,7 @@
 PKG_NAME="citra"
 PKG_VERSION="d4543ac"
 PKG_REV="1"
-PKG_ARCH="none"
+PKG_ARCH="x86_64 aarch64"
 PKG_LICENSE="GPLv2+"
 PKG_SITE="https://github.com/lakka-switch/citra"
 PKG_GIT_URL="$PKG_SITE"

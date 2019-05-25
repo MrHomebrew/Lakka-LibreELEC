@@ -19,7 +19,7 @@
 ################################################################################
 
 PKG_NAME="kronos"
-PKG_VERSION="23b6d99"
+PKG_VERSION="aa82933"
 PKG_GIT_BRANCH="kronos"
 PKG_REV="1"
 PKG_ARCH="any"

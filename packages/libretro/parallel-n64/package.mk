@@ -18,19 +18,18 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-PKG_NAME="dosbox-svn"
-PKG_VERSION="5380ccb"
-PKG_GIT_BRANCH="libretro"
+PKG_NAME="parallel-n64"
+PKG_VERSION="ab155da"
 PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv2"
-PKG_SITE="https://github.com/fr500/dosbox-svn"
+PKG_SITE="https://github.com/libretro/parallel-n64"
 PKG_GIT_URL="$PKG_SITE"
-PKG_DEPENDS_TARGET="toolchain SDL SDL_net"
+PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
 PKG_SECTION="libretro"
-PKG_SHORTDESC="Upstream port of DOSBox to libretro"
-PKG_LONGDESC="Upstream port of DOSBox to libretro"
+PKG_SHORTDESC="Optimized/rewritten Nintendo 64 emulator made specifically for Libretro. Originally based on Mupen64 Plus."
+PKG_LONGDESC="Optimized/rewritten Nintendo 64 emulator made specifically for Libretro. Originally based on Mupen64 Plus."
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
@@ -40,20 +39,29 @@ pre_configure_target() {
 }
 
 make_target() {
-  if [ "$ARCH" = "aarch64" ]; then
-    make -C libretro target=arm64 WITH_EMBEDDED_SDL=0
-  elif [ "$ARCH" = "arm" ]; then
-    make -C libretro target=arm WITH_EMBEDDED_SDL=0
-  elif [ "$ARCH" = "x86_64" ]; then
-    make -C libretro target=x86_64 WITH_EMBEDDED_SDL=0
-  elif [ "$ARCH" = "i386" ]; then 
-    make -C libretro target=x86 WITH_EMBEDDED_SDL=0
+  DYNAREC=$ARCH
+
+  if [ "$ARCH" == "i386" ]; then
+    DYNAREC=x86
+  fi
+
+  if [ "$PROJECT" == "RPi" -o "$PROJECT" == "Gamegirl" -o "$PROJECT" == "Slice" ]; then
+    make platform=rpi
+  elif [[ "$TARGET_FPU" =~ "neon" ]]; then
+    if [ "$OPENGLES_SUPPORT" = "yes" ]; then
+      P64GLES="-gles"
+    else
+      P64GLES=""
+    fi
+    CFLAGS="$CFLAGS -DGL_BGRA_EXT=0x80E1" # Fix build for platforms where GL_BGRA_EXT is not defined
+    make platform=armv$P64GLES-neon
   else
-    make -C libretro WITH_EMBEDDED_SDL=0
+    LDFLAGS="$LDFLAGS -lpthread"
+    make WITH_DYNAREC=$DYNAREC HAVE_PARALLEL=0
   fi
 }
 
 makeinstall_target() {
   mkdir -p $INSTALL/usr/lib/libretro
-  cp $PKG_BUILD/libretro/dosbox_svn_libretro.so $INSTALL/usr/lib/libretro
+  cp parallel_n64_libretro.so $INSTALL/usr/lib/libretro/
 }
