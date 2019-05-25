@@ -17,7 +17,7 @@
 ################################################################################
 
 PKG_NAME="strace"
-PKG_VERSION="5.0"
+PKG_VERSION="5.1"
 PKG_LICENSE="BSD"
 PKG_SITE="https://strace.io/"
 PKG_URL="https://strace.io/files/$PKG_VERSION/strace-$PKG_VERSION.tar.xz"
